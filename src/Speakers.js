@@ -1,9 +1,10 @@
 import React, {
+  useCallback,
   useContext,
   useEffect,
+  useMemo,
   useReducer,
   useState,
-  useCallback,
 } from "react";
 
 import { Header } from "../src/Header";
@@ -17,10 +18,10 @@ const Speakers = ({}) => {
   const [speakingSaturday, setSpeakingSaturday] = useState(true);
   const [speakingSunday, setSpeakingSunday] = useState(true);
 
-  //const [speakerList, setSpeakerList] = useState([]);
   const [speakerList, dispatch] = useReducer(speakersReducer, []);
 
   const [isLoading, setIsLoading] = useState(true);
+
   const context = useContext(ConfigContext);
 
   useEffect(() => {
@@ -47,10 +48,21 @@ const Speakers = ({}) => {
   const handleChangeSaturday = () => {
     setSpeakingSaturday(!speakingSaturday);
   };
+  const handleChangeSunday = () => {
+    setSpeakingSunday(!speakingSunday);
+  };
+  const heartFavoriteHandler = useCallback((e, favoriteValue) => {
+    e.preventDefault();
+    const sessionId = parseInt(e.target.attributes["data-sessionid"].value);
+    dispatch({
+      type: favoriteValue === true ? "favorite" : "unfavorite",
+      sessionId,
+    });
+  }, []);
 
-  const speakerListFiltered = isLoading
-    ? []
-    : speakerList
+  const newSpeakerList = useMemo(
+    () =>
+      speakerList
         .filter(
           ({ sat, sun }) => (speakingSaturday && sat) || (speakingSunday && sun)
         )
@@ -62,21 +74,11 @@ const Speakers = ({}) => {
             return 1;
           }
           return 0;
-        });
+        }),
+    [speakingSaturday, speakingSunday, speakerList]
+  );
 
-  const handleChangeSunday = () => {
-    setSpeakingSunday(!speakingSunday);
-  };
-
-  const heartFavoriteHandler = useCallback((e, favoriteValue) => {
-    e.preventDefault();
-    const sessionId = parseInt(e.target.attributes["data-sessionid"].value);
-
-    dispatch({
-      type: favoriteValue === true ? "favorite" : "unfavorite",
-      sessionId,
-    });
-  }, []);
+  const speakerListFiltered = isLoading ? [] : newSpeakerList;
 
   if (isLoading) return <div>Loading...</div>;
 
