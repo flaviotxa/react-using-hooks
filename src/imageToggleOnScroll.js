@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const ImageToggleScroll = ({ primaryImg, secondaryImg }) => {
+const ImageToggleOnScroll = ({ primaryImg, secondaryImg }) => {
   const imageRef = useRef(null);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -42,4 +42,4 @@ const ImageToggleScroll = ({ primaryImg, secondaryImg }) => {
   );
 };
 
-export default ImageToggleScroll;
+export default ImageToggleOnScroll;
