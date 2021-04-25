@@ -18,26 +18,22 @@ const Speakers = ({}) => {
   const [speakingSaturday, setSpeakingSaturday] = useState(true);
   const [speakingSunday, setSpeakingSunday] = useState(true);
 
-  const [speakerList, dispatch] = useReducer(speakersReducer, []);
-
-  const [isLoading, setIsLoading] = useState(true);
+  const [{ isLoading, speakersList }, dispatch] = useReducer(speakersReducer, {
+    isLoading: true,
+    speakersList: [],
+  });
 
   const context = useContext(ConfigContext);
 
   useEffect(() => {
-    setIsLoading(true);
     new Promise(function (resolve) {
       setTimeout(function () {
         resolve();
       }, 1000);
     }).then(() => {
-      setIsLoading(false);
-      const speakerListServerFilter = SpeakerData.filter(({ sat, sun }) => {
-        return (speakingSaturday && sat) || (speakingSunday && sun);
-      });
       dispatch({
         type: "setSpeakerList",
-        data: speakerListServerFilter,
+        data: SpeakerData,
       });
     });
     return () => {
@@ -56,7 +52,7 @@ const Speakers = ({}) => {
     const sessionId = parseInt(e.target.attributes["data-sessionid"].value);
     dispatch({
       type: favoriteValue === true ? "favorite" : "unfavorite",
-      sessionId,
+      id: sessionId,
     });
   }, []);
 
