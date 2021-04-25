@@ -6,7 +6,7 @@ import { GlobalContext } from "./GlobalState";
 const SpeakerDetail = React.memo(({ speakerRec, onHeartFavoriteHandler }) => {
   const { id, firstName, lastName, favorite, bio } = speakerRec;
 
-  const { incrementClickCount } = useContext(GlobalContext);
+  const { incrementFavoriteClickCount } = useContext(GlobalContext);
 
   return (
     <div className="card col-4 cardmin">
@@ -22,7 +22,7 @@ const SpeakerDetail = React.memo(({ speakerRec, onHeartFavoriteHandler }) => {
             className={favorite ? "heartredbutton" : "heartdarkbutton"}
             onClick={(e) => {
               onHeartFavoriteHandler(e, speakerRec);
-              incrementClickCount();
+              incrementFavoriteClickCount();
             }}
           />
           <span>

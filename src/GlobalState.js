@@ -8,7 +8,7 @@ export const GlobalProvider = ({ children }) => {
     isLoading,
     speakerList,
     favoriteClickCount,
-    incrementClickCount,
+    incrementFavoriteClickCount,
     toggleSpeakerFavorite,
   } = useSpeakerDataManager();
 
@@ -16,7 +16,7 @@ export const GlobalProvider = ({ children }) => {
     isLoading,
     speakerList,
     favoriteClickCount,
-    incrementClickCount,
+    incrementFavoriteClickCount,
     toggleSpeakerFavorite,
   };
 

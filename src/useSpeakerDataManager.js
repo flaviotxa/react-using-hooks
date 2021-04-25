@@ -12,7 +12,7 @@ function useSpeakerDataManager() {
     }
   );
 
-  function incrementClickCount() {
+  function incrementFavoriteClickCount() {
     dispatch({ type: "incrementFavoriteClickCount" });
   }
 
@@ -42,7 +42,7 @@ function useSpeakerDataManager() {
     isLoading,
     speakerList,
     favoriteClickCount,
-    incrementClickCount,
+    incrementFavoriteClickCount,
     toggleSpeakerFavorite,
   };
 }
