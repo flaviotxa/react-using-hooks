@@ -3,10 +3,18 @@ import axios from "axios";
 import { useEffect, useReducer } from "react";
 
 function useSpeakerDataManager() {
-  const [{ isLoading, speakerList }, dispatch] = useReducer(speakersReducer, {
-    isLoading: true,
-    speakerList: [],
-  });
+  const [{ isLoading, speakerList, favoriteClickCount }, dispatch] = useReducer(
+    speakersReducer,
+    {
+      isLoading: true,
+      speakerList: [],
+      favoriteClickCount: 10,
+    }
+  );
+
+  function incrementClickCount() {
+    dispatch({ type: "incrementFavoriteClickCount" });
+  }
 
   function toggleSpeakerFavorite(speakerRec) {
     const updateData = async function () {
@@ -30,6 +38,12 @@ function useSpeakerDataManager() {
       console.log("cleanup");
     };
   }, []);
-  return { isLoading, speakerList, toggleSpeakerFavorite };
+  return {
+    isLoading,
+    speakerList,
+    favoriteClickCount,
+    incrementClickCount,
+    toggleSpeakerFavorite,
+  };
 }
 export default useSpeakerDataManager;

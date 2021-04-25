@@ -1,8 +1,12 @@
 import React from "react";
 import ImageToggleOnScroll from "./ImageToggleOnScroll";
+import useSpeakerDataManager from "./useSpeakerDataManager";
 
 const SpeakerDetail = React.memo(({ speakerRec, onHeartFavoriteHandler }) => {
   const { id, firstName, lastName, favorite, bio } = speakerRec;
+
+  const { favoriteClickCount, incrementClickCount } = useSpeakerDataManager();
+
   return (
     <div className="card col-4 cardmin">
       <ImageToggleOnScroll
@@ -17,12 +21,14 @@ const SpeakerDetail = React.memo(({ speakerRec, onHeartFavoriteHandler }) => {
             className={favorite ? "heartredbutton" : "heartdarkbutton"}
             onClick={(e) => {
               onHeartFavoriteHandler(e, speakerRec);
+              incrementClickCount();
             }}
           />
           <span>
             {firstName} {lastName}
           </span>
         </h4>
+        <h5>Click Count: {favoriteClickCount}</h5>
         <span>{bio}</span>
       </div>
     </div>
