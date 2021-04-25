@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import ImageToggleOnScroll from "./ImageToggleOnScroll";
 import useSpeakerDataManager from "./useSpeakerDataManager";
+import { GlobalContext } from "./GlobalState";
 
 const SpeakerDetail = React.memo(({ speakerRec, onHeartFavoriteHandler }) => {
   const { id, firstName, lastName, favorite, bio } = speakerRec;
 
-  const { favoriteClickCount, incrementClickCount } = useSpeakerDataManager();
+  const { incrementClickCount } = useContext(GlobalContext);
 
   return (
     <div className="card col-4 cardmin">
@@ -28,7 +29,6 @@ const SpeakerDetail = React.memo(({ speakerRec, onHeartFavoriteHandler }) => {
             {firstName} {lastName}
           </span>
         </h4>
-        <h5>Click Count: {favoriteClickCount}</h5>
         <span>{bio}</span>
       </div>
     </div>
